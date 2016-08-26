@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from . models import Choice, Question
+from . models import Answer, Question
 
 # Register your models here.
 
@@ -15,8 +15,8 @@ class ChoiceInLine(admin.StackedInline):
 
 
 
-class ChoiceInLine(admin.TabularInline):
-    model = Choice
+class AnswerInLine(admin.TabularInline):
+    model = Answer
     extra = 3
 
 """
@@ -38,6 +38,6 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 
-#admin.site.register(Question, QuestionAdmin)
-admin.site.register(Choice)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Answer)
 

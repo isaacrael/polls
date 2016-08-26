@@ -5,7 +5,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from .models import Choice, Question
+from .models import Answer, Question
 import random
 
 # Create your views here.
@@ -51,17 +51,28 @@ def results(request, question_id):
 def vote(request, question_id):
     p = get_object_or_404(Question, pk=question_id)
     try:
-        selected_choice = p.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
+        selected_answer = p.answer_set.get(pk=request.POST['answer'])
+    except (KeyError, Answer.DoesNotExist):
         # Redisplay the question voting form.
         return render(request, 'polls/detail.html', {
             'question': p,
             'error_message': "You didn't select a choice.",
         })
     else:
-        value = random.randint(1,1000)
-        selected_choice.votes = value
-        selected_choice.save()
+        value = 0
+        # value = random.randint(1,1000)
+        selected_answer.votes = value + 1
+        selected_answer.save()
+        # Develop An Algorithm to zero out all of the votes
+        #votes = 0
+        #votes.save()
+        #value = 0
+        #selected_answer.votes = value
+        #selected_answer.save()
+        #answers = p.answer_set
+        #answers.votes.save()
+        #Answer.votes = str[0]
+        #Answer.votes.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
